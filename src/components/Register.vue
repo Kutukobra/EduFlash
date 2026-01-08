@@ -7,9 +7,17 @@ import EduFlashLogo from "./EduFlashLogo.vue";
   <div id="wrapper">
     <form>
       <div id="login-prompt">
-        <h1>Masuk ke Akun Anda</h1>
-        <p>Masukkan email dan kata sandi Anda</p>
+        <h1>Buat Akun Anda</h1>
+        <p>Masukkan email dan buat kata sandi Anda</p>
       </div>
+      <label for="email">Nama</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Masukkan nama Anda"
+        required
+      />
       <label for="email">Email</label>
       <input
         type="email"
@@ -18,17 +26,33 @@ import EduFlashLogo from "./EduFlashLogo.vue";
         placeholder="Masukkan email Anda"
         required
       />
+
+      <label for="role" placeholder="Pilih peran Anda">Peran</label>
+      <select id="role">
+        <option value="default">Pilih peran Anda</option>
+        <option value="teacher">Guru</option>
+        <option value="student">Murid</option>
+      </select>
+
       <label for="password">Kata Sandi</label>
       <input
         type="password"
         id="password"
         name="password"
-        placeholder="Masukkan password Anda"
+        placeholder="Masukkan kata sandi Anda"
+        required
+      />
+      <label for="password-confirm">Konfirmasi Kata Sandi</label>
+      <input
+        type="password"
+        id="password-confirm"
+        name="password-confirm"
+        placeholder="Masukkan ulang kata sandi Anda"
         required
       />
       <input id="login-btn" type="submit" value="Masuk" />
       <p id="register-link">
-        Belum punya akun? <RouterLink to="/register"><a>Daftar</a></RouterLink>
+        Sudah memiliki akun? <RouterLink to="/login"><a>Masuk</a></RouterLink>
       </p>
     </form>
   </div>
@@ -87,15 +111,19 @@ form > label {
   color: #15394a;
 }
 
-input {
-  height: 1.8rem;
+input,
+select {
   padding: 0.3rem;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
 
+  background-color: #ffffff;
   padding-left: 1rem;
+
+  min-height: 1.8rem;
 }
 
+select,
 input::placeholder {
   color: #889da8;
 }
