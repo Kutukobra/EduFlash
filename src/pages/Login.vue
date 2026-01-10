@@ -1,9 +1,9 @@
 <script setup>
-import EduFlashLogo from "./EduFlashLogo.vue";
+import EduFlashLogo from "@/components/EduFlashLogo.vue";
 </script>
 
 <template>
-  <EduFlashLogo id="eduflashlogo" />
+  <EduFlashLogo />
   <div id="wrapper">
     <form>
       <div id="login-prompt">

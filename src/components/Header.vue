@@ -1,5 +1,11 @@
 <script setup>
 import EduFlashLogo from "./EduFlashLogo.vue";
+import { defineProps } from "vue";
+
+defineProps({
+  name: String,
+  role: String,
+})
 </script>
 
 <template>
@@ -7,8 +13,8 @@ import EduFlashLogo from "./EduFlashLogo.vue";
     <EduFlashLogo id="eduflashlogo" />
     <div id="profile-wrapper">
       <div id="profile-info">
-        <span id="name-display">Raihana Zakiyah S</span>
-        <span id="role-display">Guru</span>
+        <span id="name-display">{{ name }}</span>
+        <span id="role-display">{{ role }}</span>
       </div>
       <img id="profile-picture" src="https://placehold.co/64x64" />
     </div>
@@ -31,9 +37,10 @@ import EduFlashLogo from "./EduFlashLogo.vue";
 }
 
 #profile-wrapper {
+  box-sizing: border-box;
   position: relative;
   display: flex;
-  right: 1rem;
+  right: 3rem;
   padding: 0.6rem;
   color: #016493;
 }

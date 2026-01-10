@@ -1,5 +1,5 @@
 <script setup>
-import EduFlashLogo from "./EduFlashLogo.vue";
+import EduFlashLogo from "@/components/EduFlashLogo.vue";
 </script>
 
 <template>

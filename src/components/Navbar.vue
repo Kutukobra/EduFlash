@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <nav>
+  <nav id="navbar">
     <div class="features-nav">Rekaman Vidio dan Audio</div>
     <div class="features-nav">Tanya Jawab dengan Edu</div>
     <div class="features-nav">Sumber Belajar</div>
@@ -11,7 +11,6 @@
 <style scoped>
 nav {
   display: flex;
-  position: absolute;
   height: 100%;
   flex-direction: column;
   justify-content: start;
@@ -23,10 +22,8 @@ nav {
 
   padding: 1.5rem;
 
-  right: 1rem;
-  
-  width: 20vw;
-  max-width: 25vw;
+  min-width: 20vw;
+  max-width: 25rem;
 }
 
 .features-nav {
@@ -34,7 +31,7 @@ nav {
 
   font-size: 1.2rem;
   background-color: #e9b03f;
-  border: 0px;
+  border: 0;
   border-radius: 13px;
   width: 90%;
   min-height: 4rem;

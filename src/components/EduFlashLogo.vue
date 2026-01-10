@@ -1,5 +1,5 @@
 <template>
-    <h1><span id="edu">Edu</span><span id="flash">Flash</span></h1>
+    <h1 id="eduflashlogo"><span id="edu">Edu</span><span id="flash">Flash</span></h1>
 </template>
 <script></script>
 <style scoped>
