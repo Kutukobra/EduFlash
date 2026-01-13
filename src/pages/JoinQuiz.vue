@@ -81,11 +81,13 @@ main {
   text-align: center;
 
   left: 10vw;
+
+  max-width: 75%;
 }
 
 #navbar {
   position: relative;
-  right: 3.5rem;
+  margin-right: 3.5rem;
 }
 
 main > div {

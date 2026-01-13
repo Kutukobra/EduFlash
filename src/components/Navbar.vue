@@ -22,8 +22,7 @@ nav {
 
   padding: 1.5rem;
 
-  min-width: 20vw;
-  max-width: 25rem;
+  max-width: 25%;
 }
 
 .features-nav {

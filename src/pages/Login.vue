@@ -1,11 +1,32 @@
 <script setup>
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
+import axios, { HttpStatusCode } from "axios";
+import router from "@/router";
+
+const email = defineModel("email");
+const password = defineModel("password");
+
+function submitLogin() {
+  axios
+    .post("/user/login", {
+      email: email.value,
+      password: password.value,
+    })
+    .then((response) => {
+      if (response.status == HttpStatusCode.Ok) {
+        router.push("/join")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+}
 </script>
 
 <template>
   <EduFlashLogo />
   <div id="wrapper">
-    <form>
+    <form @submit.prevent="submitLogin">
       <div id="login-prompt">
         <h1>Masuk ke Akun Anda</h1>
         <p>Masukkan email dan kata sandi Anda</p>
@@ -17,6 +38,7 @@ import EduFlashLogo from "@/components/EduFlashLogo.vue";
         name="email"
         placeholder="Masukkan email Anda"
         required
+        v-model="email"
       />
       <label for="password">Kata Sandi</label>
       <input
@@ -25,6 +47,7 @@ import EduFlashLogo from "@/components/EduFlashLogo.vue";
         name="password"
         placeholder="Masukkan password Anda"
         required
+        v-model="password"
       />
       <input id="login-btn" type="submit" value="Masuk" />
       <p id="register-link">
