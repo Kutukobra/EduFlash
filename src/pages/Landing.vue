@@ -9,7 +9,7 @@ import EduFlashLogo from "@/components/EduFlashLogo.vue";
       <RouterLink to="/login">
         <button id="teacher-login">Masuk sebagai guru</button>
       </RouterLink>
-      <RouterLink to="/login">
+      <RouterLink to="/join">
         <button id="student-login">Masuk sebagai siswa</button>
       </RouterLink>
     </div>

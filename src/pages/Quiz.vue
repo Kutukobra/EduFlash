@@ -1,0 +1,30 @@
+<script setup>
+import Header from "@/components/Header.vue";
+
+
+
+</script>
+
+<template>
+  <Header />
+  <div id="join-wrapper">
+    <main>
+      
+    </main>
+    <Navbar />
+  </div>
+</template>
+
+<style scoped>
+#join-wrapper {
+  width: 100%;
+}
+
+main {
+  width: 50%;
+}
+
+#navbar {
+  width: 20%;
+}
+</style>

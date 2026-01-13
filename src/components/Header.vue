@@ -1,17 +1,21 @@
 <script setup>
 import EduFlashLogo from "./EduFlashLogo.vue";
-import { defineProps } from "vue";
+import { onMounted, ref } from "vue";
 
-defineProps({
-  name: String,
-  role: String,
-})
+const name = ref("");
+const role = ref("");
+
+onMounted(() => {
+  name.value = localStorage.getItem("username")
+  role.value = localStorage.getItem("role")?.toUpperCase()
+});
+
 </script>
 
 <template>
   <div id="wrapper">
     <EduFlashLogo id="eduflashlogo" />
-    <div id="profile-wrapper">
+    <div id="profile-wrapper" v-if="name && role">
       <div id="profile-info">
         <span id="name-display">{{ name }}</span>
         <span id="role-display">{{ role }}</span>
@@ -22,6 +26,7 @@ defineProps({
 </template>
 
 <style scoped>
+  
 #wrapper {
   display: flex;
   position: relative;
@@ -61,12 +66,12 @@ defineProps({
   border-radius: 50%;
 }
 
-#name-display{
-    font-weight: 800;
-    font-size: 1.1rem;
+#name-display {
+  font-weight: 800;
+  font-size: 1.1rem;
 }
 
-#role-display{
-    font-weight: 500;
+#role-display {
+  font-weight: 500;
 }
 </style>

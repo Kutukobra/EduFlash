@@ -2,6 +2,7 @@
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 import axios, { HttpStatusCode } from "axios";
 import router from "@/router";
+import { defineModel } from "vue";
 
 const email = defineModel("email");
 const password = defineModel("password");
@@ -14,7 +15,12 @@ function submitLogin() {
     })
     .then((response) => {
       if (response.status == HttpStatusCode.Ok) {
-        router.push("/join")
+        var user = response.data.data
+        localStorage.setItem("user_id", user.id);
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("role", user.role);
+        router.push("/dashboard")
       }
     })
     .catch((error) => {

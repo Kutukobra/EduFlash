@@ -1,65 +1,60 @@
 <script setup>
 import Header from "@/components/Header.vue";
-import HistoryCard from "@/components/HistoryCard.vue";
-import Navbar from "@/components/Navbar.vue";
-import { ref } from "vue";
+import { ref, defineModel } from "vue";
+import axios, { HttpStatusCode } from "axios";
+import router from "@/router";
 
-const histories = ref([
-  {
-    grade: 85,
-    title: "Bitchass Quiz",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Operasi Perkalian",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Pertambahan",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Pertambahan",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Pertambahan",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Pertambahan",
-    date: "23 January 2025",
-  },
-  {
-    grade: 85,
-    title: "Pertambahan",
-    date: "23 January 2025",
-  },
-]);
+const name = defineModel("name");
+const roomId = defineModel("roomId");
+
+const invalidRoom = ref(false);
+
+function submitJoinRoom() {
+  axios
+    .get("/room/join", {
+      params: {
+        roomId: roomId.value,
+      },
+    })
+    .then((response) => {
+      if (response.status == HttpStatusCode.Ok) {
+        console.log("Successfully joined room");
+        sessionStorage.setItem("room_id", roomId.value);
+        sessionStorage.setItem("username", name.value);
+
+        router.push("/room")
+      } else {
+        console.log("Failed to join room");
+        invalidRoom.value = true;
+      }
+    })
+    .catch(() => {
+      console.log("Failed to join room");
+      invalidRoom.value = true;
+    });
+}
 </script>
 
 <template>
-  <Header name="Nadira" role="Siswa"/>
+  <Header />
   <div id="join-wrapper">
     <main>
-      <div>
-        <h2>Latihan soal membuatmu makin pintar lho!</h2>
-        <div id="join-input">
-          <input type="text" placeholder="Masukkan kode latihan soal" maxlength="6"/>
-          <button>Gabung</button>
-        </div>
-      </div>
-      <h3>Latihan soal yang telah selesai</h3>
-      <div id="history-grid">
-        <HistoryCard v-for="history in histories" :key="history.title" :history="history"/>
-      </div>
+      <form @submit.prevent="submitJoinRoom">
+        <h2>Masukkan Kode Kelas</h2>
+        <label>Nama</label>
+        <input type="text" placeholder="Masukkan nama Anda" v-model="name" />
+        <label>Kode Kelas</label>
+        <input
+          type="text"
+          placeholder="Masukkan kode latihan soal"
+          maxlength="6"
+          v-model="roomId"
+        />
+        <input type="submit" value="Masuk Kelas" />
+
+        <label v-if="invalidRoom == true" id="invalid-room">Invalid Room</label>
+      </form>
     </main>
-    <Navbar />
   </div>
 </template>
 
@@ -70,7 +65,12 @@ const histories = ref([
   height: 80vh;
   position: relative;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+
+#invalid-room {
+  color: red;
 }
 
 main {
@@ -80,14 +80,7 @@ main {
   flex-direction: column;
   text-align: center;
 
-  left: 10vw;
-
   max-width: 75%;
-}
-
-#navbar {
-  position: relative;
-  margin-right: 3.5rem;
 }
 
 main > div {
@@ -102,7 +95,7 @@ h2 {
   font-weight: 900;
 }
 
-#join-input {
+input {
   box-sizing: border-box;
 
   position: relative;
@@ -110,7 +103,7 @@ h2 {
   display: flex;
 
   align-items: center;
-  
+
   width: 40rem;
   height: 6rem;
 
@@ -147,13 +140,13 @@ button {
   border: 0px;
   border-radius: 15px;
   background-color: #016493;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.5rem;
   padding: 1rem;
 }
 
 h3 {
-  color: #E9B03F;
+  color: #e9b03f;
   font-size: 1.6rem;
   text-align: left;
   margin: 1rem;
@@ -169,4 +162,10 @@ h3 {
   position: relative;
 }
 
+label {
+  font-size: 1.5rem;
+  position: relative;
+  top: 1rem;
+  color: #016493;
+}
 </style>
