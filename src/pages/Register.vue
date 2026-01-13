@@ -71,12 +71,12 @@ function submitRegister() {
         v-model="email"
       />
 
-      <label for="role">Peran</label>
+      <!-- <label for="role">Peran</label>
       <select id="role" required v-model="role">
         <option disabled value="">Pilih peran Anda</option>
         <option value="teacher">Guru</option>
         <option value="student">Murid</option>
-      </select>
+      </select> -->
 
       <label for="password">Kata Sandi</label>
       <input

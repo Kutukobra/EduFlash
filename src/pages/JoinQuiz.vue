@@ -11,9 +11,10 @@ const invalidRoom = ref(false);
 
 function submitJoinRoom() {
   axios
-    .get("/room/join", {
+    .post("/room/join", {
       params: {
         roomId: roomId.value,
+        studentName: name.value,
       },
     })
     .then((response) => {
