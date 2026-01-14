@@ -20,9 +20,7 @@ nav {
   border: 2px solid #016493;
   border-radius: 14px;
 
-  padding: 1.5rem;
-
-  max-width: 25%;
+  width: 50%;
 }
 
 .features-nav {
@@ -31,7 +29,7 @@ nav {
   font-size: 1.2rem;
   background-color: #e9b03f;
   border: 0;
-  border-radius: 13px;
+  border-radius: 14px;
   width: 90%;
   min-height: 4rem;
 

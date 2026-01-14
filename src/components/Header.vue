@@ -6,46 +6,51 @@ const name = ref("");
 const role = ref("");
 
 onMounted(() => {
-  name.value = localStorage.getItem("username")
-  role.value = localStorage.getItem("role")?.toUpperCase()
+  name.value = localStorage.getItem("username");
+  role.value = localStorage.getItem("role")?.toUpperCase();
 });
-
 </script>
 
 <template>
-  <div id="wrapper">
-    <EduFlashLogo id="eduflashlogo" />
-    <div id="profile-wrapper" v-if="name && role">
-      <div id="profile-info">
-        <span id="name-display">{{ name }}</span>
-        <span id="role-display">{{ role }}</span>
+  <header>
+    <div id="wrapper">
+      <EduFlashLogo id="eduflashlogo" />
+      <div id="profile-wrapper" v-if="name && role">
+        <div id="profile-info">
+          <span id="name-display">{{ name }}</span>
+          <span id="role-display">{{ role }}</span>
+        </div>
+        <img id="profile-picture" src="https://placehold.co/64x64" />
       </div>
-      <img id="profile-picture" src="https://placehold.co/64x64" />
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>
-  
+header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 #wrapper {
+  box-sizing: border-box;
   display: flex;
   position: relative;
-  width: 100%;
+  width: 80%;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.8rem;
+  padding-top: 0.8rem;
 }
 
 #eduflashlogo {
   position: relative;
-  left: 2rem;
 }
 
 #profile-wrapper {
   box-sizing: border-box;
   position: relative;
   display: flex;
-  right: 3rem;
   padding: 0.6rem;
   color: #016493;
 }
@@ -55,7 +60,8 @@ onMounted(() => {
   flex-direction: column;
   align-items: end;
   justify-content: center;
-  margin-right: 1rem;
+  position: relative;
+  right: 10%
 }
 
 #profile-picture {

@@ -38,6 +38,10 @@ const roomHistory = [
 onMounted(() => {
   username.value = localStorage.getItem("username");
 })
+
+function newRoom() {
+  console.log("Test")
+}
 </script>
 
 <template>
@@ -47,8 +51,9 @@ onMounted(() => {
     <section>
       <h2>Kelas Anda</h2>
       <div id="class-grid">
-        <div id="new-class">
-          +
+        <div id="new-class" @click="newRoom">
+          <h4>+</h4>
+          <span>Buat Kelas Baru</span>
         </div>
         <div class="room-card" v-for="room in roomHistory" :key="room.roomId">
           <div class="room-card-top">
@@ -64,6 +69,25 @@ onMounted(() => {
 </template>
 
 <style scoped>
+
+#new-class {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #016493;
+  background-color: #F2FDFF;
+}
+
+#new-class h4 {
+  font-size: 5rem;
+}
+
+#new-class span {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
 
 main {
   display: flex;
@@ -126,7 +150,7 @@ h3 {
   height: 45%;
 }
 
-span {
+.room-card-bottom span {
   position: relative;
   left: 5%;
   top: 40%;
