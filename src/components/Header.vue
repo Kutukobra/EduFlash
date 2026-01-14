@@ -5,9 +5,21 @@ import { onMounted, ref } from "vue";
 const name = ref("");
 const role = ref("");
 
+const { isStudent } = defineProps({
+  isStudent: {
+    type: Boolean,
+    default: false
+  },
+})
+
 onMounted(() => {
-  name.value = localStorage.getItem("username");
-  role.value = localStorage.getItem("role")?.toUpperCase();
+  if (isStudent) {
+    name.value = sessionStorage.getItem("username");
+    role.value = "Student";
+  } else {
+    name.value = localStorage.getItem("username");
+    role.value = "Teacher";
+  }
 });
 </script>
 
@@ -20,7 +32,7 @@ onMounted(() => {
           <span id="name-display">{{ name }}</span>
           <span id="role-display">{{ role }}</span>
         </div>
-        <img id="profile-picture" src="https://placehold.co/64x64" />
+        <img v-if="!isStudent" id="profile-picture" src="https://placehold.co/64x64" />
       </div>
     </div>
   </header>

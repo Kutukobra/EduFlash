@@ -22,7 +22,13 @@ function submitJoinRoom() {
         sessionStorage.setItem("room_id", roomId.value);
         sessionStorage.setItem("username", name.value);
 
-        router.push("/room")
+        console.log(response)
+        router.push({
+          path: "/room/" + roomId.value,
+          query: {
+            roomName: response.data.data.room_name,
+          }
+        })
       } else {
         console.log("Failed to join room");
         invalidRoom.value = true;

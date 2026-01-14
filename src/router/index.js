@@ -16,7 +16,7 @@ const router = createRouter({
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/join', component: JoinRoom },
-    { path: '/room', component: Room },
+    { path: '/room/:roomId', component: Room },
     { path: '/dashboard', component: Dashboard },
     { path: '/quiz', component: Quiz },
     { path: '/manage/:roomId', component: RoomManager },

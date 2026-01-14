@@ -1,58 +1,101 @@
 <script setup>
 import Header from "@/components/Header.vue";
-import { ref, defineModel } from "vue";
-import axios, { HttpStatusCode } from "axios";
-import Navbar from "@/components/Navbar.vue";
+import MovieIcon from "@/icons/MovieIcon.vue";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import HeadIcon from "./HeadIcon.vue";
 
-const name = defineModel("name");
-const roomId = defineModel("roomId");
+const route = useRoute();
+const roomId = route.params.roomId;
+const roomName = route.query.roomName;
 
-const invalidRoom = ref(false);
-
-function submitJoinRoom() {
-  axios
-    .get("/room/join", {
-      params: {
-        roomId: roomId.value,
-      },
-    })
-    .then((response) => {
-      if (response.status == HttpStatusCode.Ok) {
-        console.log("Successfully joined room");
-        sessionStorage.setItem("room_id", roomId.value);
-        sessionStorage.setItem("username", name.value);
-      } else {
-        console.log("Failed to join room");
-        invalidRoom.value = true;
-      }
-    })
-    .catch(() => {
-      console.log("Failed to join room");
-      invalidRoom.value = true;
-    });
-}
+onMounted(() => {
+  console.log(roomName);
+});
 </script>
 
 <template>
-  <Header />
-  <div id="join-wrapper">
+  <Header :is-student="true" />
+  <div class="wrapper">
     <main>
-      
+      <header>
+        <h1>{{ roomName }}</h1>
+        <span>ID: {{ roomId }}</span>
+      </header>
+      <div class="room-card" id="data-tab">
+        <MovieIcon />
+        <h2>Rekaman Vidio dan Audio</h2>
+      </div>
+      <div class="room-card" id="question-tab">
+        <HeadIcon />
+        <h2>Tanya Jawab dengan Edu</h2>
+      </div>
     </main>
-    <Navbar />
   </div>
 </template>
 
 <style scoped>
-#join-wrapper {
+.wrapper {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
 main {
   width: 50%;
+  height: 70vh;
+  display: grid;
+  grid-template-areas:
+    "header header "
+    "data-tab question-tab";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 6fr;
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
-#navbar {
-  width: 20%;
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: header;
+}
+
+h1 {
+  color: #016493;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+span {
+  color: #016493;
+  font-weight: 400;
+}
+
+#data-tab {
+  grid-area: data-tab;
+  background-color: #016493;
+}
+
+#question-tab {
+  grid-area: question-tab;
+  background-color: #E9B03F;
+}
+
+.room-card {
+  color: white;
+  border: 0;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.icon {
+  width: 40%;
 }
 </style>
