@@ -21,6 +21,19 @@ function toggleRecording() {
 const studentNames = ref({});
 const intervalId = ref({});
 
+const roomName = ref("");
+
+function getRoomData() {
+  axios
+    .get(`/room/${roomId}`)
+    .then((response) => {
+      roomName.value = response.data.data.room_name;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 function fetchStudents() {
   axios
     .get(`/room/${roomId}/students`)
@@ -38,19 +51,19 @@ function startStudentsPolling() {
   intervalId.value = setInterval(fetchStudents, 5000);
 }
 
-const creatingQuiz = ref(false)
+const creatingQuiz = ref(false);
 
 onMounted(() => {
-  startStudentsPolling()
+  startStudentsPolling();
+  getRoomData();
 });
-
 </script>
 
 <template>
   <Header />
   <div class="content-wrapper">
     <main>
-      <h1>Rekam Kelas</h1>
+      <h1>Rekaman Kelas {{ roomName }}</h1>
       <section class="recording">rekam</section>
       <section class="transcript">
         <h2>Transkrip Audio</h2>

@@ -4,10 +4,19 @@ import MovieIcon from "@/icons/MovieIcon.vue";
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import HeadIcon from "./HeadIcon.vue";
+import router from "@/router";
 
 const route = useRoute();
 const roomId = route.params.roomId;
 const roomName = route.query.roomName;
+
+function toRoomData() {
+  router.push(`/room/${roomId}/data`);
+}
+
+function toRoomChatbot() {
+  router.push(`/room/${roomId}/chat`);
+}
 
 onMounted(() => {
   console.log(roomName);
@@ -22,11 +31,11 @@ onMounted(() => {
         <h1>{{ roomName }}</h1>
         <span>ID: {{ roomId }}</span>
       </header>
-      <div class="room-card" id="data-tab">
+      <div class="room-card" id="data-tab" @click="toRoomData">
         <MovieIcon />
         <h2>Rekaman Vidio dan Audio</h2>
       </div>
-      <div class="room-card" id="question-tab">
+      <div class="room-card" id="question-tab" @click="toRoomChatbot">
         <HeadIcon />
         <h2>Tanya Jawab dengan Edu</h2>
       </div>
@@ -81,7 +90,7 @@ span {
 
 #question-tab {
   grid-area: question-tab;
-  background-color: #E9B03F;
+  background-color: #e9b03f;
 }
 
 .room-card {

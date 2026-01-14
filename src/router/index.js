@@ -8,6 +8,8 @@ import Dashboard from '@/pages/Dashboard.vue'
 import Quiz from '@/pages/Quiz.vue'
 import RoomManager from '@/pages/RoomManager.vue'
 import JoinRoom from '@/pages/JoinRoom.vue'
+import ClassData from '@/pages/ClassData.vue'
+import ClassChatbot from '@/pages/ClassChatbot.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +19,8 @@ const router = createRouter({
     { path: '/register', component: Register },
     { path: '/join', component: JoinRoom },
     { path: '/room/:roomId', component: Room },
+    { path: '/room/:roomId/data', component: ClassData },
+    { path: '/room/:roomId/chat', component: ClassChatbot },
     { path: '/dashboard', component: Dashboard },
     { path: '/quiz', component: Quiz },
     { path: '/manage/:roomId', component: RoomManager },

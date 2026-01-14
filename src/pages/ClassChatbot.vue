@@ -1,0 +1,100 @@
+<script setup>
+import Header from "@/components/Header.vue";
+import { useRoute } from "vue-router";
+import { onMounted, ref } from "vue";
+import axios from "axios";
+
+const route = useRoute()
+
+const roomId = route.params.roomId;
+const roomName = ref("")
+
+function getRoomData() {
+    axios.get(`/room/${roomId}`).then((response) => {
+        roomName.value = response.data.data.room_name;
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+
+onMounted(() => {
+    getRoomData();
+})
+</script>
+
+<template>
+  <Header />
+  <div class="wrapper">
+    <main>
+      <h1> {{ roomName }} </h1>
+      <section class="chatbot">
+        <h2>Chat</h2>
+        <div></div>
+      </section>
+      <section class="options"></section>
+    </main>
+  </div>
+</template>
+
+<style scoped>
+* {
+  color: white;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #016493;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  width: 100%;
+  height: 10%;
+  background-color: #016493;
+  display: flex;
+  align-items: center;
+  padding-left: 1.2rem;
+  font-weight: 300;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 1fr 20fr;
+  grid-template-areas:
+    "title ."
+    "transcript options";
+  gap: 2rem;
+}
+
+.chatbot {
+  grid-area: transcript;
+  border: 1px solid #016493;
+  border-radius: 15px;
+
+  overflow: hidden;
+}
+
+.options {
+  grid-area: options;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ededed;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+
+</style>
