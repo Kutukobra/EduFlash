@@ -1,5 +1,4 @@
 <script setup>
-import Header from "@/components/Header.vue";
 import { ref, defineModel } from "vue";
 import axios, { HttpStatusCode } from "axios";
 import router from "@/router";

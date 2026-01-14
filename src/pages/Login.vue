@@ -2,10 +2,12 @@
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 import axios, { HttpStatusCode } from "axios";
 import router from "@/router";
-import { defineModel } from "vue";
+import { ref, defineModel } from "vue";
 
 const email = defineModel("email");
 const password = defineModel("password");
+
+const failedLogin = ref(false);
 
 function submitLogin() {
   axios
@@ -15,16 +17,24 @@ function submitLogin() {
     })
     .then((response) => {
       if (response.status == HttpStatusCode.Ok) {
-        var user = response.data.data
+        var user = response.data.data;
         localStorage.setItem("user_id", user.id);
         localStorage.setItem("username", user.username);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("role", user.role);
-        router.push("/dashboard")
+        router.push("/dashboard");
       }
     })
     .catch((error) => {
-      console.log(error)
+      if (error.response) {
+        var response = error.response;
+        if (
+          response.status == HttpStatusCode.Unauthorized ||
+          response.status == HttpStatusCode.BadRequest
+        ) {
+          failedLogin.value = true;
+        }
+      } else {
+        console.log(error);
+      }
     });
 }
 </script>
@@ -55,6 +65,7 @@ function submitLogin() {
         required
         v-model="password"
       />
+      <span v-if="failedLogin" class="failed-request">Email atau kata sandi salah</span>
       <input id="login-btn" type="submit" value="Masuk" />
       <p id="register-link">
         Belum punya akun? <RouterLink to="/register"><a>Daftar</a></RouterLink>

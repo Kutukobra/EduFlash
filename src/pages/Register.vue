@@ -8,7 +8,7 @@ const email = defineModel("email");
 const username = defineModel("username");
 const password = defineModel("password");
 const confirmPassword = defineModel("confirmPassword");
-const role = defineModel("role");
+const role = "teacher";
 
 const passwordMismatch = ref(false);
 const badRequest = ref(false);
@@ -25,7 +25,7 @@ function submitRegister() {
       email: email.value,
       username: username.value,
       password: password.value,
-      role: role.value,
+      role: role,
     })
     .then((response) => {
       console.log(response.data);
@@ -71,13 +71,6 @@ function submitRegister() {
         v-model="email"
       />
 
-      <!-- <label for="role">Peran</label>
-      <select id="role" required v-model="role">
-        <option disabled value="">Pilih peran Anda</option>
-        <option value="teacher">Guru</option>
-        <option value="student">Murid</option>
-      </select> -->
-
       <label for="password">Kata Sandi</label>
       <input
         type="password"
@@ -113,8 +106,5 @@ function submitRegister() {
 <style scoped>
 @import url(../assets/entrypage.css);
 
-.failed-request {
-  width: 100%;
-  color: red;
-}
+
 </style>

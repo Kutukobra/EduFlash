@@ -49,7 +49,7 @@ const creatingRoom = ref(false)
         </div>
         <div class="room-card" v-for="room in rooms" :key="room.roomId" @click="enterRoom(room.id)">
           <div class="room-card-top">
-            <h3>{{ room.title }}</h3>
+            <h3>{{ room.room_name }}</h3>
           </div>
           <div class="room-card-bottom">
             <span>Kode Kelas: {{ room.id }}</span>
