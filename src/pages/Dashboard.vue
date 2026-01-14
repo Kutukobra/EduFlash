@@ -1,5 +1,6 @@
 <script setup>
 import Header from "@/components/Header.vue";
+import router from "@/router";
 import axios from "axios";
 import { onMounted, ref } from "vue";
 
@@ -28,6 +29,11 @@ onMounted(() => {
 function newRoom() {
   console.log("Test");
 }
+
+function enterRoom(roomId) {
+  router.push("/manage/" + roomId)
+}
+
 </script>
 
 <template>
@@ -41,7 +47,7 @@ function newRoom() {
           <h4>+</h4>
           <span>Buat Kelas Baru</span>
         </div>
-        <div class="room-card" v-for="room in rooms" :key="room.roomId">
+        <div class="room-card" v-for="room in rooms" :key="room.roomId" @click="enterRoom(room.id)">
           <div class="room-card-top">
             <h3>{{ room.title }}</h3>
           </div>
@@ -96,6 +102,7 @@ section {
   position: relative;
   width: 60%;
   height: 50%;
+  padding-bottom: 2rem;
 }
 
 #class-grid {
@@ -111,7 +118,7 @@ section {
   border-radius: 8px;
   background: white;
   overflow: hidden;
-
+  cursor: pointer;
   aspect-ratio: 4 / 3;
 }
 
@@ -145,7 +152,6 @@ h3 {
 #new-class {
   font-size: 2rem;
   font-weight: bold;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
