@@ -1,13 +1,13 @@
 <script setup>
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 import axios, { HttpStatusCode } from "axios";
-import { defineModel, ref } from "vue";
+import { ref } from "vue";
 import router from "@/router";
 
-const email = defineModel("email");
-const username = defineModel("username");
-const password = defineModel("password");
-const confirmPassword = defineModel("confirmPassword");
+const email = ref("");
+const username = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 const role = "teacher";
 
 const passwordMismatch = ref(false);

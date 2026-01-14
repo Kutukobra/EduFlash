@@ -1,9 +1,9 @@
 <script setup>
 import router from "@/router";
 import axios from "axios";
-import { defineModel } from "vue";
+import { ref } from "vue";
 
-const roomName = defineModel("roomName");
+const roomName = ref("");
 
 function submitCreateRoom() {
   const ownerId = localStorage.getItem("user_id");

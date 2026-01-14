@@ -2,10 +2,10 @@
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 import axios, { HttpStatusCode } from "axios";
 import router from "@/router";
-import { ref, defineModel } from "vue";
+import { ref } from "vue";
 
-const email = defineModel("email");
-const password = defineModel("password");
+const email = ref("");
+const password = ref("");
 
 const failedLogin = ref(false);
 

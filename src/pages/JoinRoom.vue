@@ -1,11 +1,11 @@
 <script setup>
-import { ref, defineModel } from "vue";
+import { ref } from "vue";
 import axios, { HttpStatusCode } from "axios";
 import router from "@/router";
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 
-const name = defineModel("name");
-const roomId = defineModel("roomId");
+const name = ref("");
+const roomId = ref("");
 
 const invalidRoom = ref(false);
 

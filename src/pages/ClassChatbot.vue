@@ -4,32 +4,66 @@ import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import axios from "axios";
 
-const route = useRoute()
+const route = useRoute();
 
 const roomId = route.params.roomId;
-const roomName = ref("")
+const roomName = ref("");
 
 function getRoomData() {
-    axios.get(`/room/${roomId}`).then((response) => {
-        roomName.value = response.data.data.room_name;
-    }).catch((error) => {
-        console.log(error)
+  axios
+    .get(`/room/${roomId}`)
+    .then((response) => {
+      roomName.value = response.data.data.room_name;
     })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 onMounted(() => {
-    getRoomData();
-})
+  getRoomData();
+});
+
+const messages = ref([
+  {
+    sent: true,
+    text: "Assalamualaikum habibie",
+  },
+]);
+
+const message = ref("message")
+
+function sendMessage() {
+  console.log(message.value)
+  messages.value.push({
+    sent: true,
+    text: message.value
+  })
+  message.value = ""
+}
+
 </script>
 
 <template>
   <Header />
   <div class="wrapper">
     <main>
-      <h1> {{ roomName }} </h1>
+      <h1>{{ roomName }}</h1>
       <section class="chatbot">
         <h2>Chat</h2>
-        <div></div>
+        <div class="chatbox">
+          <div
+            v-for="message in messages"
+            :class="
+              'chat-bubble ' + (message.sent ? ' chat-sent' : ' chat-received')
+            "
+          >
+            {{ message.text }}
+          </div>
+        </div>
+        <form @submit.prevent="sendMessage">
+          <input type="text" placeholder="Masukkan pertanyaan kamu" v-model="message"/>
+        </form>
       </section>
       <section class="options"></section>
     </main>
@@ -37,6 +71,56 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.chatbox {
+  position: relative;
+  overflow-y: scroll;
+  width: 100%;
+  height: 80%;
+  padding: 1rem;
+}
+
+.chat-bubble {
+  color: black;
+  max-width: 50%;
+  padding: 1rem;
+  position: relative;
+  border: 0;
+  border-radius: 14px;
+  margin: 0.5rem;
+}
+
+.chat-sent {
+  background-color: #c5e9ff;
+  left: 50%;
+}
+
+.chat-received {
+  color: white;
+  background-color: #016493;
+}
+
+form {
+  box-sizing: border-box;
+  height: 10%;
+  bottom: 0px;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-bottom: 0px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #016493;
+  border-radius: 14px;
+  color: #016493;
+  font-size: 1.4rem;
+}
+
+input::placeholder {
+  color: #016493;
+}
+
 * {
   color: white;
   box-sizing: border-box;
@@ -96,5 +180,4 @@ main {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 }
-
 </style>
