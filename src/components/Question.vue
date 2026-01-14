@@ -33,6 +33,10 @@ label {
   padding: 1rem;
 }
 
+input {
+  appearance: none;
+}
+
 .question h3 {
   font-size: 1.5rem;
   color: #15394a;

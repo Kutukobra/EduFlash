@@ -67,14 +67,14 @@ input::placeholder {
   color: #889da8;
 }
 
-#login-btn {
+input[type="submit"] {
   background-color: #016493;
   color: #ffffff;
   min-height: 2.5rem;
   padding: 0;
 }
 
-#login-btn:hover {
+input[type="submit"]:hover {
   cursor: pointer;
 }
 

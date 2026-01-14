@@ -1,46 +1,32 @@
 <script setup>
 import Header from "@/components/Header.vue";
+import axios from "axios";
 import { onMounted, ref } from "vue";
 
-const username = ref("")
+const username = ref("");
+const userId = ref("");
 
-const roomHistory = [
-  {
-    title: "Matematika",
-    roomId: "0000004",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000005",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000006",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000007",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000008",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000009",
-  },
-  {
-    title: "Matematika",
-    roomId: "0000010",
-  },
-]
+const rooms = ref({});
+
+function fetchRooms() {
+  axios
+    .get(`/user/${userId.value}/rooms`)
+    .then((response) => {
+      rooms.value = response.data.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 onMounted(() => {
   username.value = localStorage.getItem("username");
-})
+  userId.value = localStorage.getItem("user_id");
+  fetchRooms();
+});
 
 function newRoom() {
-  console.log("Test")
+  console.log("Test");
 }
 </script>
 
@@ -55,12 +41,12 @@ function newRoom() {
           <h4>+</h4>
           <span>Buat Kelas Baru</span>
         </div>
-        <div class="room-card" v-for="room in roomHistory" :key="room.roomId">
+        <div class="room-card" v-for="room in rooms" :key="room.roomId">
           <div class="room-card-top">
             <h3>{{ room.title }}</h3>
           </div>
           <div class="room-card-bottom">
-            <span>Kode Kelas: {{ room.roomId }}</span>
+            <span>Kode Kelas: {{ room.id }}</span>
           </div>
         </div>
       </div>
@@ -69,7 +55,6 @@ function newRoom() {
 </template>
 
 <style scoped>
-
 #new-class {
   display: flex;
   flex-direction: column;
@@ -77,7 +62,7 @@ function newRoom() {
   justify-content: center;
 
   color: #016493;
-  background-color: #F2FDFF;
+  background-color: #f2fdff;
 }
 
 #new-class h4 {
@@ -122,7 +107,7 @@ section {
 #new-class,
 .room-card {
   box-sizing: border-box;
-  border: 1px solid #4176C5;
+  border: 1px solid #4176c5;
   border-radius: 8px;
   background: white;
   overflow: hidden;
@@ -142,7 +127,7 @@ h3 {
   width: 100%;
   height: 55%;
   margin: 0px;
-  background-color: #4176C5;
+  background-color: #4176c5;
 }
 
 .room-card-bottom {
@@ -165,5 +150,4 @@ h3 {
   justify-content: center;
   align-items: center;
 }
-
 </style>
