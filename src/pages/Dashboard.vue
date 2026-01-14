@@ -1,6 +1,7 @@
 <script setup>
-import CreateQuiz from "@/components/CreateQuiz.vue";
+import CreateRoom from "@/components/CreateRoom.vue";
 import Header from "@/components/Header.vue";
+import Popup from "@/components/Popup.vue";
 import router from "@/router";
 import axios from "axios";
 import { onMounted, ref } from "vue";
@@ -27,13 +28,11 @@ onMounted(() => {
   fetchRooms();
 });
 
-function newRoom() {
-  console.log("Test");
-}
-
 function enterRoom(roomId) {
   router.push("/manage/" + roomId)
 }
+
+const creatingRoom = ref(false)
 
 </script>
 
@@ -44,7 +43,7 @@ function enterRoom(roomId) {
     <section>
       <h2>Kelas Anda</h2>
       <div id="class-grid">
-        <div id="new-class" @click="newRoom">
+        <div id="new-class" @click="creatingRoom = true">
           <h4>+</h4>
           <span>Buat Kelas Baru</span>
         </div>
@@ -59,6 +58,9 @@ function enterRoom(roomId) {
       </div>
     </section>
   </main>
+  <Popup v-if="creatingRoom" @close-popup="creatingRoom = false">
+    <CreateRoom />
+  </Popup>
 </template>
 
 <style scoped>

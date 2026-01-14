@@ -30,5 +30,6 @@ defineEmits(["close-popup"]);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 </style>
