@@ -8,6 +8,7 @@ import CreateQuiz from "@/components/CreateQuiz.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import Popup from "@/components/Popup.vue";
 
 const route = useRoute();
 const roomId = route.params.roomId;
@@ -37,7 +38,7 @@ function startStudentsPolling() {
   intervalId.value = setInterval(fetchStudents, 5000);
 }
 
-const creatingQuiz = ref(true)
+const creatingQuiz = ref(false)
 
 onMounted(() => {
   startStudentsPolling()
@@ -98,7 +99,9 @@ onMounted(() => {
       </section>
     </main>
   </div>
-  <CreateQuiz v-if="creatingQuiz" @close-popup="creatingQuiz = false"/>
+  <Popup v-if="creatingQuiz" @close-popup="creatingQuiz = false">
+    <CreateQuiz "/>
+  </Popup>
 </template>
 
 <style scoped>
