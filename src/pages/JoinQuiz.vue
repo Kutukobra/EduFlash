@@ -11,9 +11,8 @@ const invalidRoom = ref(false);
 
 function submitJoinRoom() {
   axios
-    .post("/room/join", {
+    .post(`/room/${roomId.value}/join`, null, {
       params: {
-        roomId: roomId.value,
         studentName: name.value,
       },
     })
