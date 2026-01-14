@@ -1,7 +1,7 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, nextTick } from "vue";
 import axios from "axios";
 
 const route = useRoute();
@@ -31,17 +31,27 @@ const messages = ref([
   },
 ]);
 
-const message = ref("message")
+const message = ref("");
+const chatbox = ref(null);
+
+watch(
+  () => messages.value.length,
+  async () => {
+    await nextTick();
+    if (chatbox.value) {
+      chatbox.value.scrollTop = chatbox.value.scrollHeight;
+    }
+  }
+);
 
 function sendMessage() {
-  console.log(message.value)
+  console.log(message.value);
   messages.value.push({
     sent: true,
-    text: message.value
-  })
-  message.value = ""
+    text: message.value,
+  });
+  message.value = "";
 }
-
 </script>
 
 <template>
@@ -51,7 +61,7 @@ function sendMessage() {
       <h1>{{ roomName }}</h1>
       <section class="chatbot">
         <h2>Chat</h2>
-        <div class="chatbox">
+        <div class="chatbox" ref="chatbox">
           <div
             v-for="message in messages"
             :class="
@@ -62,7 +72,11 @@ function sendMessage() {
           </div>
         </div>
         <form @submit.prevent="sendMessage">
-          <input type="text" placeholder="Masukkan pertanyaan kamu" v-model="message"/>
+          <input
+            type="text"
+            placeholder="Masukkan pertanyaan kamu"
+            v-model="message"
+          />
         </form>
       </section>
       <section class="options"></section>
@@ -77,6 +91,12 @@ function sendMessage() {
   width: 100%;
   height: 80%;
   padding: 1rem;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+
+.chatbox::-webkit-scrollbar {
+  display: none; /* Older Safari and Chromium */
 }
 
 .chat-bubble {
