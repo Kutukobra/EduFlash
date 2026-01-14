@@ -1,4 +1,5 @@
 <script setup>
+import CreateQuiz from "@/components/CreateQuiz.vue";
 import Header from "@/components/Header.vue";
 import router from "@/router";
 import axios from "axios";

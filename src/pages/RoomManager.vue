@@ -4,6 +4,7 @@ import NoteIcon from "@/icons/NoteIcon.vue";
 import PlayIcon from "@/icons/PlayIcon.vue";
 import StopIcon from "@/icons/StopIcon.vue";
 import UserGroupIcon from "@/icons/UserGroupIcon.vue";
+import CreateQuiz from "@/components/CreateQuiz.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
@@ -35,6 +36,8 @@ function startStudentsPolling() {
   if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
   intervalId.value = setInterval(fetchStudents, 5000);
 }
+
+const creatingQuiz = ref(true)
 
 onMounted(() => {
   startStudentsPolling()
@@ -74,7 +77,7 @@ onMounted(() => {
           <StopIcon />
           <h3>Berhenti</h3>
         </button>
-        <div id="create-quiz" class="option-card">
+        <div id="create-quiz" class="option-card" @click="creatingQuiz = true">
           <div>
             <NoteIcon />
             <h3>Buat Latihan Soal</h3>
@@ -95,6 +98,7 @@ onMounted(() => {
       </section>
     </main>
   </div>
+  <CreateQuiz v-if="creatingQuiz" @close-popup="creatingQuiz = false"/>
 </template>
 
 <style scoped>
