@@ -19,7 +19,7 @@ const router = createRouter({
     { path: '/room', component: Room },
     { path: '/dashboard', component: Dashboard },
     { path: '/quiz', component: Quiz },
-    { path: '/manage-room', component: RoomManager },
+    { path: '/manage/:roomId', component: RoomManager },
   ],
 })
 

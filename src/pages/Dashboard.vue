@@ -97,7 +97,7 @@ main {
 
 h1 {
   color: #016493;
-  font-size: 3rem;
+  font-size: 2.4rem;
   margin-bottom: 4rem;
   margin-top: 2rem;
 }
