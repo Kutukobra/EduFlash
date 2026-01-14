@@ -6,6 +6,7 @@ import StopIcon from "@/icons/StopIcon.vue";
 import UserGroupIcon from "@/icons/UserGroupIcon.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import axios from "axios";
 
 const route = useRoute();
 const roomId = route.params.roomId;
@@ -15,14 +16,30 @@ function toggleRecording() {
   recording.value = !recording.value;
 }
 
-const studentNames = [
-  "M Nadzhif Fikri",
-  "Mikola Syabila",
-  "Raihanah Zakiyah Sukri",
-  "Nadira Najmi"
-]
+const studentNames = ref({});
+const intervalId = ref({});
 
-onMounted(() => {});
+function fetchStudents() {
+  axios
+    .get(`/room/${roomId}/students`)
+    .then((response) => {
+      studentNames.value = response.data.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function startStudentsPolling() {
+  fetchStudents();
+  if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
+  intervalId.value = setInterval(fetchStudents, 5000);
+}
+
+onMounted(() => {
+  startStudentsPolling()
+});
+
 </script>
 
 <template>
@@ -70,7 +87,9 @@ onMounted(() => {});
           </div>
 
           <ol id="student-list">
-            <li v-for="(student, index) in studentNames" :key="index">{{ student }}</li>
+            <li v-for="(student, index) in studentNames" :key="index">
+              {{ student }}
+            </li>
           </ol>
         </div>
       </section>
