@@ -9,6 +9,8 @@ const roomId = ref("");
 
 const invalidRoom = ref(false);
 
+const errorMessage = ref("Ada yang salah")
+
 function submitJoinRoom() {
   axios
     .post(`/room/${roomId.value}/join`, null, {
@@ -17,7 +19,6 @@ function submitJoinRoom() {
       },
     })
     .then((response) => {
-      if (response.status == HttpStatusCode.Ok) {
         console.log("Successfully joined room");
         sessionStorage.setItem("room_id", roomId.value);
         sessionStorage.setItem("username", name.value);
@@ -29,13 +30,10 @@ function submitJoinRoom() {
             roomName: response.data.data.room_name,
           }
         })
-      } else {
-        console.log("Failed to join room");
-        invalidRoom.value = true;
-      }
+    
     })
-    .catch(() => {
-      console.log("Failed to join room");
+    .catch((error) => {
+      errorMessage.value = error.response.data.error
       invalidRoom.value = true;
     });
 }
@@ -58,7 +56,7 @@ function submitJoinRoom() {
         />
         <input type="submit" value="Masuk Kelas" />
 
-        <label v-if="invalidRoom == true" id="invalid-room">Invalid Room</label>
+        <label v-if="invalidRoom == true" id="error-request">{{ errorMessage }}</label>
       </form>
     </main>
   </div>
@@ -66,7 +64,7 @@ function submitJoinRoom() {
 
 <style scoped>
 @import url(../assets/entrypage.css);
-#invalid-room {
+#error-request {
   color: red;
 }
 </style>
