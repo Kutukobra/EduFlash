@@ -29,11 +29,10 @@ onMounted(() => {
 });
 
 function enterRoom(roomId) {
-  router.push("/room/" + roomId + "/manage")
+  router.push("/room/" + roomId + "/manage");
 }
 
-const creatingRoom = ref(false)
-
+const creatingRoom = ref(false);
 </script>
 
 <template>
@@ -47,7 +46,12 @@ const creatingRoom = ref(false)
           <h4>+</h4>
           <span>Buat Kelas Baru</span>
         </div>
-        <div class="room-card" v-for="room in rooms" :key="room.roomId" @click="enterRoom(room.id)">
+        <div
+          class="room-card"
+          v-for="room in rooms"
+          :key="room.roomId"
+          @click="enterRoom(room.id)"
+        >
           <div class="room-card-top">
             <h3>{{ room.room_name }}</h3>
           </div>
@@ -59,7 +63,12 @@ const creatingRoom = ref(false)
     </section>
   </main>
   <Popup v-if="creatingRoom" @close-popup="creatingRoom = false">
-    <CreateRoom @room-created="fetchRooms(); creatingRoom = false"/>
+    <CreateRoom
+      @room-created="
+        fetchRooms();
+        creatingRoom = false;
+      "
+    />
   </Popup>
 </template>
 

@@ -41,7 +41,7 @@ watch(
     if (chatbox.value) {
       chatbox.value.scrollTop = chatbox.value.scrollHeight;
     }
-  }
+  },
 );
 
 function sendMessage() {

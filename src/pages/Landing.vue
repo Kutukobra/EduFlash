@@ -1,14 +1,16 @@
 <script setup>
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
+
+enterAsTeacher() {
+
+}
 </script>
 
 <template>
   <div>
     <div id="wrapper">
-      <EduFlashLogo id="eduflashlogo"/>
-      <RouterLink to="/login">
-        <button id="teacher-login">Masuk sebagai guru</button>
-      </RouterLink>
+      <EduFlashLogo id="eduflashlogo" />
+      <button id="teacher-login">Masuk sebagai guru</button>
       <RouterLink to="/join">
         <button id="student-login">Masuk sebagai siswa</button>
       </RouterLink>

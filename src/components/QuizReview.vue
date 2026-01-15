@@ -3,13 +3,12 @@ import Question from "@/components/Question.vue";
 import { defineProps } from "vue";
 
 defineProps({
-  questions: Object
-})
-
+  questions: Object,
+});
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="review-wrapper">
     <form>
       <Question
         v-for="question in questions"
@@ -22,13 +21,14 @@ defineProps({
 </template>
 
 <style scoped>
-.wrapper {
+.review-wrapper {
   display: flex;
+  width: 100%;
   justify-content: center;
 }
 
 form {
-  width: 50%;
+  width: 100%;
   display: flexbox;
 }
 

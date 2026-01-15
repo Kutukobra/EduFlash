@@ -4,23 +4,25 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 
 const roomId = route.params.roomId;
-const roomName = ref("")
+const roomName = ref("");
 
 function getRoomData() {
-    axios.get(`/room/${roomId}`).then((response) => {
-        roomName.value = response.data.data.room_name;
-    }).catch((error) => {
-        console.log(error)
+  axios
+    .get(`/room/${roomId}`)
+    .then((response) => {
+      roomName.value = response.data.data.room_name;
     })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 onMounted(() => {
-    getRoomData();
-})
-
+  getRoomData();
+});
 </script>
 
 <template>
@@ -28,9 +30,7 @@ onMounted(() => {
   <div class="wrapper">
     <main>
       <h1>Rekaman Kelas {{ roomName }}</h1>
-      <section class="recording">
-
-      </section>
+      <section class="recording"></section>
       <section class="transcript">
         <h2>Transkrip Audio</h2>
         <div></div>

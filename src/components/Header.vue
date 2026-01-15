@@ -8,9 +8,9 @@ const role = ref("");
 const { isStudent } = defineProps({
   isStudent: {
     type: Boolean,
-    default: false
+    default: false,
   },
-})
+});
 
 onMounted(() => {
   if (isStudent) {
@@ -32,7 +32,11 @@ onMounted(() => {
           <span id="name-display">{{ name }}</span>
           <span id="role-display">{{ role }}</span>
         </div>
-        <img v-if="!isStudent" id="profile-picture" src="https://placehold.co/64x64" />
+        <img
+          v-if="!isStudent"
+          id="profile-picture"
+          src="https://placehold.co/64x64"
+        />
       </div>
     </div>
   </header>
@@ -73,7 +77,7 @@ header {
   align-items: end;
   justify-content: center;
   position: relative;
-  right: 10%
+  right: 10%;
 }
 
 #profile-picture {

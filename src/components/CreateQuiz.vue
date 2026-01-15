@@ -3,7 +3,9 @@
 <template>
   <h1>Buat Latihan Soal</h1>
   <form>
-    <textarea placeholder="Ketik perintah untuk membuat latihan soal"></textarea>
+    <textarea
+      placeholder="Ketik perintah untuk membuat latihan soal"
+    ></textarea>
     <input type="submit" value="Buat dan bagikan" />
   </form>
 </template>
@@ -33,10 +35,11 @@ textarea {
 }
 
 textarea::placeholder {
-  color: #CBD5E1;
+  color: #cbd5e1;
 }
 
-textarea, textarea::placeholder {
+textarea,
+textarea::placeholder {
   font-size: 1.2rem;
 }
 

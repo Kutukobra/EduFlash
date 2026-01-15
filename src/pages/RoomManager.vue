@@ -78,6 +78,7 @@ onMounted(() => {
           v-if="recording == true"
           id="record-btn"
           @click="toggleRecording"
+          class="option-card"
         >
           <PlayIcon />
           <h3>Rekam</h3>
@@ -113,7 +114,7 @@ onMounted(() => {
     </main>
   </div>
   <Popup v-if="creatingQuiz" @close-popup="creatingQuiz = false">
-    <CreateQuiz "/>
+    <CreateQuiz />
   </Popup>
 </template>
 
@@ -191,8 +192,7 @@ main {
   border-radius: 15px;
 }
 
-.options > div,
-.options > button {
+.option-card {
   width: 100%;
   min-height: 10%;
   background-color: #e9b03f;
@@ -254,6 +254,7 @@ main {
 }
 
 #student-list {
+  color: #e9b03f;
   list-style: decimal;
   margin: 0;
   color: #333;

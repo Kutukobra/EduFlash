@@ -18,6 +18,6 @@
 
 <style scoped>
 .icon {
-    display: inline-block;
+  display: inline-block;
 }
 </style>

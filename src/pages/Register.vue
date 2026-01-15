@@ -34,12 +34,12 @@ function submitRegister() {
       } else if (response.status === HttpStatusCode.InternalServerError) {
         internalError.value = true;
       } else {
-        router.push("/login")
+        router.push("/login");
       }
     })
     .catch((error) => {
       internalError.value = true;
-      console.log(error)
+      console.log(error);
     });
 }
 </script>
@@ -92,9 +92,7 @@ function submitRegister() {
       <p class="failed-request" v-if="passwordMismatch === true">
         Konfirmasi kata sandi salah
       </p>
-      <p v-if="internalError === true">
-        Terjadi kesalahan
-      </p>
+      <p v-if="internalError === true">Terjadi kesalahan</p>
       <input id="login-btn" type="submit" value="Daftar" />
       <p id="register-link">
         Sudah memiliki akun? <RouterLink to="/login"><a>Masuk</a></RouterLink>
@@ -105,6 +103,4 @@ function submitRegister() {
 
 <style scoped>
 @import url(../assets/entrypage.css);
-
-
 </style>

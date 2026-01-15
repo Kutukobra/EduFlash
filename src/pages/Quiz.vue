@@ -18,14 +18,15 @@ const questions = [
       },
     ],
     answer: 2,
-    explanation: "Assalamualaikum warahmatullahi wabarakatuh, Salam sejahtera bagi kita semua, Shalom, Om Swastyastu, Namo Buddhaya, Salam Kebajikan",
-  }
+    explanation:
+      "Assalamualaikum warahmatullahi wabarakatuh, Salam sejahtera bagi kita semua, Shalom, Om Swastyastu, Namo Buddhaya, Salam Kebajikan",
+  },
 ];
 
 const answers = ref({});
 const score = ref(0);
 
-const showScore = ref(false)
+const showScore = ref(false);
 
 function submitQuiz() {
   var questionCount = questions.length;
@@ -35,7 +36,7 @@ function submitQuiz() {
       console.log({
         answered: answers.value[question.id],
         answer: question.answer,
-      })
+      });
       correctAnswer++;
     }
   }
@@ -45,7 +46,7 @@ function submitQuiz() {
 
 function handleUpdate({ questionId, optionId }) {
   answers.value[questionId] = optionId;
-  console.log(answers.value)
+  console.log(answers.value);
 }
 </script>
 
@@ -62,7 +63,7 @@ function handleUpdate({ questionId, optionId }) {
       <input type="submit" id="submit-btn" />
     </form>
   </div>
-  <ScoreResult :score="score" v-if="showScore" @close="showScore = false"/>
+  <ScoreResult :score="score" v-if="showScore" @close="showScore = false" />
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import axios, { HttpStatusCode } from "axios";
 import router from "@/router";
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
 
@@ -9,7 +8,7 @@ const roomId = ref("");
 
 const invalidRoom = ref(false);
 
-const errorMessage = ref("Ada yang salah")
+const errorMessage = ref("Ada yang salah");
 
 function submitJoinRoom() {
   axios
@@ -19,21 +18,17 @@ function submitJoinRoom() {
       },
     })
     .then((response) => {
-        console.log("Successfully joined room");
-        sessionStorage.setItem("room_id", roomId.value);
-        sessionStorage.setItem("username", name.value);
+      var room = response.data.room;
 
-        console.log(response)
-        router.push({
-          path: "/room/" + roomId.value,
-          query: {
-            roomName: response.data.data.room_name,
-          }
-        })
-    
+      router.push({
+        path: "/room/" + roomId.value,
+        query: {
+          roomName: room.name,
+        },
+      });
     })
     .catch((error) => {
-      errorMessage.value = error.response.data.error
+      errorMessage.value = error.response.data.error;
       invalidRoom.value = true;
     });
 }
@@ -56,7 +51,9 @@ function submitJoinRoom() {
         />
         <input type="submit" value="Masuk Kelas" />
 
-        <label v-if="invalidRoom == true" id="error-request">{{ errorMessage }}</label>
+        <label v-if="invalidRoom == true" id="error-request">{{
+          errorMessage
+        }}</label>
       </form>
     </main>
   </div>

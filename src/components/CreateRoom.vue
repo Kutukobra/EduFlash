@@ -3,7 +3,7 @@ import axios from "axios";
 import { ref, defineEmits } from "vue";
 
 const roomName = ref("");
-const emit = defineEmits(["room-created"])
+const emit = defineEmits(["room-created"]);
 
 function submitCreateRoom() {
   const ownerId = localStorage.getItem("user_id");
@@ -13,7 +13,7 @@ function submitCreateRoom() {
       ownerId: ownerId,
     })
     .then(() => {
-      emit("room-created")
+      emit("room-created");
     })
     .catch((error) => {
       console.log(error);

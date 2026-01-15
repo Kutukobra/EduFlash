@@ -1,12 +1,11 @@
 <script setup>
-import { defineProps, defineEmits, ref } from "vue";
+import { defineProps, defineEmits } from "vue";
 defineProps({
   question: Object,
-  answerShown: Boolean
+  answerShown: Boolean,
 });
 
 const emit = defineEmits(["update"]);
-
 </script>
 
 <template>
@@ -14,11 +13,11 @@ const emit = defineEmits(["update"]);
     :class="['question ', answerShown == false ? 'question-enabled' : '']"
   >
     <h3>{{ question.id + 1 + ". " + question.question }}</h3>
-    <label 
-    v-for="option in question.options" 
-    :key="option.id"
-    :class="{
-        answer: answerShown && option.id === question.answer
+    <label
+      v-for="option in question.options"
+      :key="option.id"
+      :class="{
+        answer: answerShown && option.id === question.answer,
       }"
     >
       <input
@@ -40,7 +39,6 @@ const emit = defineEmits(["update"]);
 </template>
 
 <style scoped>
-
 .explanation {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
