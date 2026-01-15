@@ -15,7 +15,7 @@ function fetchRooms() {
   axios
     .get(`/user/${userId.value}/rooms`)
     .then((response) => {
-      rooms.value = response.data.data;
+      rooms.value = response.data.room;
     })
     .catch((error) => {
       console.log(error);

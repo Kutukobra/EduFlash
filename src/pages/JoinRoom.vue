@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import router from "@/router";
 import EduFlashLogo from "@/components/EduFlashLogo.vue";
+import axios from "axios";
+import { setStudentData } from "@/storage/student";
 
 const name = ref("");
 const roomId = ref("");
@@ -19,7 +21,7 @@ function submitJoinRoom() {
     })
     .then((response) => {
       var room = response.data.room;
-
+      setStudentData(name)
       router.push({
         path: "/room/" + roomId.value,
         query: {
