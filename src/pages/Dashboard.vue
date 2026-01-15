@@ -29,7 +29,7 @@ onMounted(() => {
 });
 
 function enterRoom(roomId) {
-  router.push("/manage/" + roomId)
+  router.push("/room/" + roomId + "/manage")
 }
 
 const creatingRoom = ref(false)
@@ -59,7 +59,7 @@ const creatingRoom = ref(false)
     </section>
   </main>
   <Popup v-if="creatingRoom" @close-popup="creatingRoom = false">
-    <CreateRoom />
+    <CreateRoom @room-created="fetchRooms(); creatingRoom = false"/>
   </Popup>
 </template>
 

@@ -21,9 +21,9 @@ const router = createRouter({
     { path: '/room/:roomId', component: Room },
     { path: '/room/:roomId/data', component: ClassData },
     { path: '/room/:roomId/chat', component: ClassChatbot },
+    { path: '/room/:roomId/manage', component: RoomManager },
     { path: '/dashboard', component: Dashboard },
     { path: '/quiz', component: Quiz },
-    { path: '/manage/:roomId', component: RoomManager },
   ],
 })
 

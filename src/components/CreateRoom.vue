@@ -1,9 +1,9 @@
 <script setup>
-import router from "@/router";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 
 const roomName = ref("");
+const emit = defineEmits(["room-created"])
 
 function submitCreateRoom() {
   const ownerId = localStorage.getItem("user_id");
@@ -12,8 +12,8 @@ function submitCreateRoom() {
       roomName: roomName.value,
       ownerId: ownerId,
     })
-    .then((response) => {
-      router.push(`/manage/${response.data.data.id}`);
+    .then(() => {
+      emit("room-created")
     })
     .catch((error) => {
       console.log(error);

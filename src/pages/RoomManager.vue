@@ -48,7 +48,7 @@ function fetchStudents() {
 function startStudentsPolling() {
   fetchStudents();
   if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
-  intervalId.value = setInterval(fetchStudents, 5000);
+  intervalId.value = setInterval(fetchStudents, 10000);
 }
 
 const creatingQuiz = ref(false);

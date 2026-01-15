@@ -26,8 +26,8 @@ onMounted(() => {
 
 const messages = ref([
   {
-    sent: true,
-    text: "Assalamualaikum habibie",
+    sent: false,
+    text: "Assalamualaikum warahmatullahi wabarakatuh, Salam sejahtera bagi kita semua, Shalom, Om Swastyastu, Namo Buddhaya, Salam Kebajikan",
   },
 ]);
 
@@ -101,17 +101,18 @@ function sendMessage() {
 
 .chat-bubble {
   color: black;
-  max-width: 50%;
+  max-width: 60%;
   padding: 1rem;
   position: relative;
   border: 0;
   border-radius: 14px;
   margin: 0.5rem;
+  overflow-x: hidden;
 }
 
 .chat-sent {
   background-color: #c5e9ff;
-  left: 50%;
+  left: 40%;
 }
 
 .chat-received {
@@ -165,14 +166,14 @@ h2 {
 
 .wrapper {
   width: 100%;
-  height: 100%;
+  height: 80vh;
   display: flex;
   justify-content: center;
 }
 
 main {
   width: 80%;
-  height: 80%;
+  height: 80vh;
   display: grid;
   grid-template-columns: 4fr 1fr;
   grid-template-rows: 1fr 20fr;
