@@ -76,6 +76,7 @@ input {
   font-size: 1.5rem;
   color: #15394a;
   font-weight: 800;
+  margin-bottom: 1.2rem;
 }
 
 .question > label {

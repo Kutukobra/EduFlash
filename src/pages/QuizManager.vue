@@ -1,9 +1,7 @@
 <script setup>
 import Header from "@/components/Header.vue";
-import Popup from "@/components/Popup.vue";
 import Question from "@/components/Question.vue";
-import ScoreResult from "@/components/ScoreResult.vue";
-import { ref } from "vue";
+import QuizReview from "@/components/QuizReview.vue";
 
 const questions = [
   {
@@ -72,54 +70,13 @@ const questions = [
   },
 ];
 
-const score = ref(0);
-
-const showScore = ref(false);
 </script>
 
 <template>
   <Header />
-  <div id="join-wrapper">
-    <form @submit.prevent="submitQuiz">
-      <Question
-        v-for="question in questions"
-        :question="question"
-        :key="question.id"
-        :answer-shown="true"
-      />
-      <input type="submit" id="submit-btn" />
-    </form>
-  </div>
-  <Popup v-if="showScore" @close-popup="showScore = false">
-    <ScoreResult :score="score" />
-  </Popup>
+  <QuizReview :questions="questions" />
 </template>
 
 <style scoped>
-#join-wrapper {
-  display: flex;
-  justify-content: center;
-}
 
-form {
-  width: 50%;
-  display: flexbox;
-}
-
-#submit-btn {
-  width: 60%;
-  height: 5rem;
-  border: 2px solid;
-  border-radius: 14px;
-  position: relative;
-  left: 20%;
-  margin-bottom: 5rem;
-  background-color: #5da2cd;
-  color: white;
-}
-
-#submit-btn:hover {
-  background-color: #f3b124;
-  cursor: pointer;
-}
 </style>
