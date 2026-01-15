@@ -5,17 +5,16 @@ import Popup from "@/components/Popup.vue";
 import router from "@/router";
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { getUserData } from "@/storage/teacher";
 
-const username = ref("");
-const userId = ref("");
-
+const user = ref({})
 const rooms = ref({});
 
 function fetchRooms() {
   axios
-    .get(`/user/${userId.value}/rooms`)
+    .get(`/user/${user.value.id}/rooms`)
     .then((response) => {
-      rooms.value = response.data.room;
+      rooms.value = response.data.rooms;
     })
     .catch((error) => {
       console.log(error);
@@ -23,8 +22,8 @@ function fetchRooms() {
 }
 
 onMounted(() => {
-  username.value = localStorage.getItem("username");
-  userId.value = localStorage.getItem("user_id");
+  user.value = getUserData();
+  console.log(user.value)
   fetchRooms();
 });
 
@@ -38,7 +37,7 @@ const creatingRoom = ref(false);
 <template>
   <Header />
   <main>
-    <h1>Mulai kelas hari ini, {{ username }}</h1>
+    <h1>Mulai kelas hari ini, {{ user.username }}</h1>
     <section>
       <h2>Kelas Anda</h2>
       <div id="class-grid">
@@ -53,7 +52,7 @@ const creatingRoom = ref(false);
           @click="enterRoom(room.id)"
         >
           <div class="room-card-top">
-            <h3>{{ room.room_name }}</h3>
+            <h3>{{ room.name }}</h3>
           </div>
           <div class="room-card-bottom">
             <span>Kode Kelas: {{ room.id }}</span>

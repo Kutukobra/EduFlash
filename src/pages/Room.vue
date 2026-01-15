@@ -1,14 +1,13 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import MovieIcon from "@/icons/MovieIcon.vue";
-import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { onMounted, ref } from "vue";
 import HeadIcon from "./HeadIcon.vue";
 import router from "@/router";
+import { getStudentData } from "@/storage/student";
 
-const route = useRoute();
-const roomId = route.params.roomId;
-const roomName = route.query.roomName;
+const roomId = ref("");
+const roomName = ref("");
 
 function toRoomData() {
   router.push(`/room/${roomId}/data`);
@@ -19,7 +18,9 @@ function toRoomChatbot() {
 }
 
 onMounted(() => {
-  console.log(roomName);
+  const student = getStudentData();
+  roomId.value = student.roomId;
+  roomName.value = student.roomName;
 });
 </script>
 

@@ -27,19 +27,17 @@ function submitRegister() {
       password: password.value,
       role: role,
     })
-    .then((response) => {
-      console.log(response.data);
-      if (response.status === HttpStatusCode.BadRequest) {
-        badRequest.value = true;
-      } else if (response.status === HttpStatusCode.InternalServerError) {
-        internalError.value = true;
-      } else {
-        router.push("/login");
-      }
+    .then(() => {
+      router.push("/login");
     })
     .catch((error) => {
-      internalError.value = true;
-      console.log(error);
+      var response = error.response;
+      console.log(response);
+      if (response.status == HttpStatusCode.BadRequest) {
+        badRequest.value = true;
+      } else if (response.status == HttpStatusCode.InternalServerError) {
+        internalError.value = true;
+      }
     });
 }
 </script>
@@ -93,6 +91,7 @@ function submitRegister() {
         Konfirmasi kata sandi salah
       </p>
       <p v-if="internalError === true">Terjadi kesalahan</p>
+      <p v-else-if="badRequest === true">Email sudah terpakai</p>
       <input id="login-btn" type="submit" value="Daftar" />
       <p id="register-link">
         Sudah memiliki akun? <RouterLink to="/login"><a>Masuk</a></RouterLink>

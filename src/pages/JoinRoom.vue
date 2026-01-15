@@ -20,14 +20,9 @@ function submitJoinRoom() {
       },
     })
     .then((response) => {
-      var room = response.data.room;
-      setStudentData(name)
-      router.push({
-        path: "/room/" + roomId.value,
-        query: {
-          roomName: room.name,
-        },
-      });
+      let room = response.data.room;
+      setStudentData(name.value, room.id, room.name);
+      router.push("/room/" + roomId.value);
     })
     .catch((error) => {
       errorMessage.value = error.response.data.error;

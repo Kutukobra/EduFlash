@@ -13,7 +13,7 @@ function getRoomData() {
   axios
     .get(`/room/${roomId}`)
     .then((response) => {
-      roomName.value = response.data.data.room_name;
+      roomName.value = response.data.room.name;
     })
     .catch((error) => {
       console.log(error);

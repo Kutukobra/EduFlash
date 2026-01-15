@@ -1,23 +1,19 @@
 <script setup>
+import { getUserData } from "@/storage/teacher";
 import EduFlashLogo from "./EduFlashLogo.vue";
 import { onMounted, ref } from "vue";
+import { getStudentData } from "@/storage/student";
 
 const name = ref("");
 const role = ref("");
 
-const { isStudent } = defineProps({
-  isStudent: {
-    type: Boolean,
-    default: false,
-  },
-});
-
 onMounted(() => {
-  if (isStudent) {
-    name.value = sessionStorage.getItem("username");
+  let { username } = getStudentData();
+  if (username !== null) {
+    name.value = username;
     role.value = "Student";
-  } else {
-    name.value = localStorage.getItem("username");
+  } else if (username = getUserData().username) {
+    name.value = username;
     role.value = "Teacher";
   }
 });
@@ -32,11 +28,6 @@ onMounted(() => {
           <span id="name-display">{{ name }}</span>
           <span id="role-display">{{ role }}</span>
         </div>
-        <img
-          v-if="!isStudent"
-          id="profile-picture"
-          src="https://placehold.co/64x64"
-        />
       </div>
     </div>
   </header>

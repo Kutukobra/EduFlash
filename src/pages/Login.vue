@@ -19,7 +19,7 @@ function submitLogin() {
     .then((response) => {
       if (response.status == HttpStatusCode.Ok) {
         var user = response.data.user;
-        setUserData(user.id, user.name);
+        setUserData(user.id, user.username);
         router.push("/dashboard");
       }
     })

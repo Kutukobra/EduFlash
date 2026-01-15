@@ -1,4 +1,5 @@
 <script setup>
+import { getUserData } from "@/storage/teacher";
 import axios from "axios";
 import { ref, defineEmits } from "vue";
 
@@ -6,7 +7,7 @@ const roomName = ref("");
 const emit = defineEmits(["room-created"]);
 
 function submitCreateRoom() {
-  const ownerId = localStorage.getItem("user_id");
+  let ownerId = getUserData().id
   axios
     .post("/room/create", {
       roomName: roomName.value,

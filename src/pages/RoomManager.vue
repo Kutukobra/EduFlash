@@ -27,7 +27,7 @@ function getRoomData() {
   axios
     .get(`/room/${roomId}`)
     .then((response) => {
-      roomName.value = response.data.data.room_name;
+      roomName.value = response.data.room.name;
     })
     .catch((error) => {
       console.log(error);
@@ -38,7 +38,7 @@ function fetchStudents() {
   axios
     .get(`/room/${roomId}/students`)
     .then((response) => {
-      studentNames.value = response.data.data;
+      studentNames.value = response.data.students;
     })
     .catch((error) => {
       console.log(error);
