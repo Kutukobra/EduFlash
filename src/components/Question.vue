@@ -1,14 +1,26 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
 defineProps({
   question: Object,
+  answerShown: Boolean
 });
+
+const emit = defineEmits(["update"]);
+
 </script>
 
 <template>
-  <section class="question">
+  <section
+    :class="['question ', answerShown == false ? 'question-enabled' : '']"
+  >
     <h3>{{ question.id + 1 + ". " + question.question }}</h3>
-    <label v-for="option in question.options">
+    <label 
+    v-for="option in question.options" 
+    :key="option.id"
+    :class="{
+        answer: answerShown && option.id === question.answer
+      }"
+    >
       <input
         type="radio"
         :name="'q_' + question.id"
@@ -16,13 +28,33 @@ defineProps({
         @change="
           $emit('update', { questionId: question.id, optionId: option.id })
         "
+        :disabled="answerShown"
       />
       {{ option.text }}
     </label>
+    <section v-if="answerShown" class="explanation">
+      <h2>Pembahasan</h2>
+      {{ question.explanation }}
+    </section>
   </section>
 </template>
 
 <style scoped>
+
+.explanation {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  border: 2px dashed #016493;
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.explanation > h2 {
+  color: #016493;
+}
+
 label {
   display: block;
   position: relative;
@@ -31,6 +63,9 @@ label {
 
 .question {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 input {
@@ -45,7 +80,7 @@ input {
 
 .question > label {
   box-sizing: border-box;
-  margin: 0.5rem;
+  margin: 0.5rem 0;
   border: 0;
   border-radius: 14px;
   background-color: #016493;
@@ -54,12 +89,16 @@ input {
   color: #ffffff;
 }
 
-.question > label:hover {
+.question-enabled > label:hover {
   cursor: pointer;
   background-color: #f3b124;
 }
 
 .question > label:has(input:checked) {
   background-color: #f3b124;
+}
+
+.question > label.answer {
+  background-color: #76c408;
 }
 </style>

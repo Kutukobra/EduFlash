@@ -10,6 +10,7 @@ import RoomManager from '@/pages/RoomManager.vue'
 import JoinRoom from '@/pages/JoinRoom.vue'
 import ClassData from '@/pages/ClassData.vue'
 import ClassChatbot from '@/pages/ClassChatbot.vue'
+import QuizManager from '@/pages/QuizManager.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ const router = createRouter({
     { path: '/room/:roomId/manage', component: RoomManager },
     { path: '/dashboard', component: Dashboard },
     { path: '/quiz', component: Quiz },
+    { path: '/quiz/:quizId/manage', component: QuizManager}
   ],
 })
 
