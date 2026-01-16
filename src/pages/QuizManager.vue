@@ -42,7 +42,16 @@ function getStudentScores() {
 }
 
 function postQuizToStudents() {
-
+  axios
+    .post(`/room/${route.params.roomId}/quiz`, {
+      quizId: route.params.quizId,
+    })
+    .then(() => {
+      console.log("Quiz distributed");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 function fetchQuiz() {
@@ -58,7 +67,7 @@ function fetchQuiz() {
 
 onMounted(() => {
   fetchQuiz();
-})
+});
 </script>
 
 <template>
