@@ -17,7 +17,28 @@ function toRoomChatbot() {
   router.push(`/room/${roomId}/chat`);
 }
 
+const quizIds = ref({});
+const intervalId = ref({});
+
+function fetchQuizzes() {
+  axios
+    .get(`/room/${roomId}/quizzes`)
+    .then((response) => {
+      quizIds.value = response.data.students;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function startQuizPolling() {
+  fetchQuizzes();
+  if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
+  intervalId.value = setInterval(fetchQuizzes, 10000);
+}
+
 onMounted(() => {
+  startQuizPolling();  
   const student = getStudentData();
   roomId.value = student.roomId;
   roomName.value = student.roomName;
