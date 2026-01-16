@@ -159,7 +159,7 @@ function stopQuiz() {
   <Header />
   <div class="wrapper">
     <main>
-      <h1>Kelas Bla</h1>
+      <h1>Cek Kuis</h1>
       <Scoreboard v-if="viewScores" class="content" :results="results" />
       <QuizReview v-else class="content" :questions="questions" />
       <section class="options">

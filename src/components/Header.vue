@@ -5,28 +5,28 @@ import { onMounted, ref } from "vue";
 import { getStudentData } from "@/storage/student";
 
 const name = ref("");
-const role = ref("");
 
 onMounted(() => {
-  let { username } = getStudentData();
-  if (username !== null) {
-    name.value = username;
-    role.value = "Student";
-  } else if (username = getUserData().username) {
-    name.value = username;
-    role.value = "Teacher";
-  }
+  const student = getStudentData()?.username;
+  const user = getUserData()?.username;
+
+  const clean = (v) =>
+    v && v !== "null" && v !== "undefined" && v.trim() !== "" ? v : null;
+
+  name.value = clean(student) || clean(user) || "Guest";
+
+  console.log("Resolved name:", name.value);
 });
+
 </script>
 
 <template>
   <header>
     <div id="wrapper">
       <EduFlashLogo id="eduflashlogo" />
-      <div id="profile-wrapper" v-if="name && role">
+      <div id="profile-wrapper" v-if="name == true">
         <div id="profile-info">
           <span id="name-display">{{ name }}</span>
-          <span id="role-display">{{ role }}</span>
         </div>
       </div>
     </div>
@@ -69,14 +69,6 @@ header {
   justify-content: center;
   position: relative;
   right: 10%;
-}
-
-#profile-picture {
-  background-color: black;
-  width: 3rem;
-  aspect-ratio: 1 / 1;
-  border: 4px solid #016493;
-  border-radius: 50%;
 }
 
 #name-display {
