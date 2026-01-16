@@ -49,6 +49,7 @@ const emit = defineEmits(["update"]);
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   width: 100%;
+  height: 100%;
   border: 2px dashed #016493;
   border-radius: 14px;
   box-sizing: border-box;

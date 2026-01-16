@@ -200,12 +200,14 @@ onMounted(() => {
 <style scoped>
 .wrapper {
   width: 100%;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .grid {
   width: 80%;
+  height: 100%;
   display: grid;
   grid-template-areas:
     "header header"
