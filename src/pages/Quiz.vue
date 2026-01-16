@@ -122,7 +122,7 @@ function postScore() {
   axios.post(`/quiz/${route.params.quizId}/submit`, {
     studentName: student.username,
     score: score.value || 0,
-  })
+  });
 }
 
 function submitQuiz() {
