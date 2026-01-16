@@ -1,7 +1,7 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import MovieIcon from "@/icons/MovieIcon.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import HeadIcon from "./HeadIcon.vue";
 import router from "@/router";
 import { getStudentData } from "@/storage/student";
@@ -18,14 +18,27 @@ function toRoomChatbot() {
   router.push(`/room/${roomId.value}/chat`);
 }
 
-const quizIds = ref({});
 const intervalId = ref({});
+const latestId = ref("");
+
+function newQuizReceived(quizId) {
+  router.push("/quiz/" + quizId);
+}
+
+watch(latestId, (newId) => {
+  if (!newId) return;
+  if (newId == sessionStorage.getItem("latestQuiz")) return;
+  sessionStorage.setItem("latestQuiz", newId);
+  newQuizReceived(newId);
+});
 
 function fetchQuizzes() {
   axios
     .get(`/room/${roomId.value}/quizzes`)
     .then((response) => {
-      quizIds.value = response.data.students;
+      if (response.data.quizzes) {
+        latestId.value = response.data.quizzes[0];
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -33,18 +46,21 @@ function fetchQuizzes() {
 }
 
 function startQuizPolling() {
-  fetchQuizzes();
   if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
-  intervalId.value = setInterval(fetchQuizzes, 10000);
+  intervalId.value = setInterval(fetchQuizzes, 5000);
 }
 
 onMounted(() => {
-  startQuizPolling();  
   const student = getStudentData();
   roomId.value = student.roomId;
   roomName.value = student.roomName;
+  console.log(roomId.value);
+  startQuizPolling();
 });
 
+onUnmounted(() => {
+  clearInterval(intervalId.value);
+});
 </script>
 
 <template>

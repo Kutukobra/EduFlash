@@ -5,7 +5,7 @@ import PlayIcon from "@/icons/PlayIcon.vue";
 import StopIcon from "@/icons/StopIcon.vue";
 import UserGroupIcon from "@/icons/UserGroupIcon.vue";
 import CreateQuiz from "@/components/CreateQuiz.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import Popup from "@/components/Popup.vue";
@@ -56,6 +56,10 @@ const creatingQuiz = ref(false);
 onMounted(() => {
   startStudentsPolling();
   getRoomData();
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId.value);
 });
 </script>
 
