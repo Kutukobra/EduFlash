@@ -9,6 +9,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import Popup from "@/components/Popup.vue";
+import router from "@/router";
 
 const route = useRoute();
 const roomId = route.params.roomId;
@@ -20,8 +21,14 @@ function toggleRecording() {
 
 const studentNames = ref({});
 const intervalId = ref({});
-
 const roomName = ref("");
+
+const newQuiz = ref("84a40060-4802-46b0-9cd8-4927341b202c");
+
+function promptQuiz(prompt) {
+  console.log(prompt);
+  router.push(`/room/${route.params.roomId}/quiz/${newQuiz.value}/manage`);
+}
 
 function getRoomData() {
   axios
@@ -118,7 +125,7 @@ onUnmounted(() => {
     </main>
   </div>
   <Popup v-if="creatingQuiz" @close-popup="creatingQuiz = false">
-    <CreateQuiz />
+    <CreateQuiz @new-quiz="promptQuiz"/>
   </Popup>
 </template>
 
