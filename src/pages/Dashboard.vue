@@ -7,7 +7,7 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { getUserData } from "@/storage/teacher";
 
-const user = ref({});
+const user = ref({})
 const rooms = ref({});
 
 function fetchRooms() {
@@ -23,7 +23,7 @@ function fetchRooms() {
 
 onMounted(() => {
   user.value = getUserData();
-  console.log(user.value);
+  console.log(user.value)
   fetchRooms();
 });
 
@@ -32,32 +32,6 @@ function enterRoom(roomId) {
 }
 
 const creatingRoom = ref(false);
-
-const studentNames = ref({});
-const intervalId = ref({});
-
-const roomName = ref("");
-
-function fetchStudents() {
-  axios
-    .get(`/room/${roomId}/students`)
-    .then((response) => {
-      studentNames.value = response.data.students;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-function startStudentsPolling() {
-  fetchStudents();
-  if (intervalId.value) clearInterval(intervalId.value); // Clear any existing interval
-  intervalId.value = setInterval(fetchStudents, 10000);
-}
-
-onMounted(() => {
-  startStudentsPolling();
-});
 </script>
 
 <template>
