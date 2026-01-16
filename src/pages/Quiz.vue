@@ -7,6 +7,7 @@ import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 import { useRoute } from "vue-router";
 import { getStudentData } from "@/storage/student";
+import router from "@/router";
 
 const questions = [
   {
@@ -126,6 +127,9 @@ function postScore() {
 }
 
 function submitQuiz() {
+  if (showScore.value === true) {
+    router.back();
+  }
   var questionCount = questions.length;
   var correctAnswer = 0;
   for (const question of questions) {

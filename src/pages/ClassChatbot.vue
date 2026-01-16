@@ -79,7 +79,6 @@ function sendMessage() {
           />
         </form>
       </section>
-      <section class="options"></section>
     </main>
   </div>
 </template>
@@ -175,11 +174,10 @@ main {
   width: 80%;
   height: 80vh;
   display: grid;
-  grid-template-columns: 4fr 1fr;
   grid-template-rows: 1fr 20fr;
   grid-template-areas:
-    "title ."
-    "transcript options";
+    "title"
+    "transcript";
   gap: 2rem;
 }
 
@@ -189,16 +187,5 @@ main {
   border-radius: 15px;
 
   overflow: hidden;
-}
-
-.options {
-  grid-area: options;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid #ededed;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
 }
 </style>
