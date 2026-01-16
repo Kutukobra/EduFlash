@@ -75,10 +75,14 @@ onUnmounted(() => {
   <div class="content-wrapper">
     <main>
       <h1>Rekaman Kelas {{ roomName }}</h1>
-      <section class="recording">rekam</section>
+      <section class="recording">
+        // TO-DO: Put class image here
+      </section>
       <section class="transcript">
         <h2>Transkrip Audio</h2>
-        <div></div>
+        <div>
+          // TO-DO: Appends class transcript
+        </div>
       </section>
       <section class="options">
         <div class="class-code option-card">

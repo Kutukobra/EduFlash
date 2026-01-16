@@ -46,6 +46,7 @@ watch(
 
 function sendMessage() {
   console.log(message.value);
+  // TO-DO: POST to AI chatbot, get message, append to messages as sent: false;
   messages.value.push({
     sent: true,
     text: message.value,

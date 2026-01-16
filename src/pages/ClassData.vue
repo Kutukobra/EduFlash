@@ -21,6 +21,7 @@ function getRoomData() {
 }
 
 onMounted(() => {
+  // TO-DO: Create a POLL that periodically fetches class image and appends class transcript
   getRoomData();
 });
 </script>
@@ -30,10 +31,14 @@ onMounted(() => {
   <div class="wrapper">
     <main>
       <h1>Rekaman Kelas {{ roomName }}</h1>
-      <section class="recording"></section>
+      <section class="recording">
+        // TO-DO: Put the class image here
+      </section>
       <section class="transcript">
         <h2>Transkrip Audio</h2>
-        <div></div>
+        <div>
+          // TO-DO: Append audio transcript here
+        </div>
       </section>
     </main>
   </div>
