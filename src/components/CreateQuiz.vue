@@ -1,10 +1,24 @@
-<script setup></script>
+<script setup>
+import router from "@/router";
+import { useRoute } from "vue-router";
+import { ref } from "vue";
+
+const route = useRoute();
+
+const quizId = "56442617-0b4d-401d-bd9f-b49e7231b2cd";
+const prompt = ref("");
+
+function promptQuiz() {
+  console.log(prompt.value);
+  router.push(`/room/${route.params.roomId}/quiz/${quizId}/manage`);
+}
+</script>
 
 <template>
   <h1>Buat Latihan Soal</h1>
-  <form>
+  <form @submit.prevent="promptQuiz">
     <textarea
-      placeholder="Ketik perintah untuk membuat latihan soal"
+      placeholder="Ketik perintah untuk membuat latihan soal" v-model="prompt"
     ></textarea>
     <input type="submit" value="Buat dan bagikan" />
   </form>
