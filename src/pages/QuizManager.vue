@@ -19,6 +19,13 @@ const distribute = ref(false);
 
 function distributeQuiz() {
   distribute.value = true;
+  postQuizToStudents();
+}
+
+function stopQuiz() {
+  viewScores.value = true;
+  distribute.value = false;
+  getStudentScores();
 }
 
 const viewScores = ref(false);
@@ -34,6 +41,10 @@ function getStudentScores() {
     });
 }
 
+function postQuizToStudents() {
+
+}
+
 function fetchQuiz() {
   axios
     .get(`/quiz/${route.params.quizId}`)
@@ -43,11 +54,6 @@ function fetchQuiz() {
     .catch((error) => {
       console.log(error);
     });
-}
-
-function stopQuiz() {
-  viewScores.value = true;
-  getStudentScores();
 }
 
 onMounted(() => {

@@ -8,7 +8,7 @@ defineProps({
 
 <template>
   <div class="scoreboard">
-    <div class="result" v-for="result in results.so" :key="result.name">
+    <div class="result" v-for="result in results" :key="result.name">
       <span>{{ result.name }}</span>
       <span>{{ result.score }}</span>
     </div>
