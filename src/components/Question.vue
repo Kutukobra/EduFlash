@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, onMounted } from "vue";
+import { defineProps, defineEmits } from "vue";
 defineProps({
   question: Object,
   answerShown: Boolean,
@@ -22,7 +22,7 @@ const emit = defineEmits(["update"]);
       :key="option.id"
       :class="{
         answer: answerShown && option.id === question.answer,
-        incorrect: answerShown && option.id === selected,
+        incorrect: answerShown && option.id === selected && option.id !== question.answer,
         selected: !answerShown && option.id === selected,
       }"
     >
