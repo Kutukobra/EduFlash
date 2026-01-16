@@ -4,6 +4,9 @@ import Question from "@/components/Question.vue";
 import QuizNavigator from "@/components/QuizNavigator.vue";
 import ScoreResult from "@/components/ScoreResult.vue";
 import { onMounted, ref, watch } from "vue";
+import axios from "axios";
+import { useRoute } from "vue-router";
+import { getStudentData } from "@/storage/student";
 
 const questions = [
   {
@@ -104,6 +107,8 @@ const questions = [
   },
 ];
 
+const route = useRoute();
+
 const questionIndex = ref(0);
 const currentQuestion = ref({});
 
@@ -111,6 +116,14 @@ const selection = ref({});
 const score = ref(0);
 
 const showScore = ref(false);
+
+function postScore() {
+  const student = getStudentData();
+  axios.post(`/quiz/${route.params.quizId}/submit`, {
+    studentName: student.username,
+    score: score.value || 0,
+  })
+}
 
 function submitQuiz() {
   var questionCount = questions.length;
@@ -126,6 +139,8 @@ function submitQuiz() {
   }
   score.value = (correctAnswer / questionCount) * 100.0;
   showScore.value = true;
+  questionIndex.value = 0;
+  postScore();
 }
 
 function handleUpdate({ questionId, optionId }) {
