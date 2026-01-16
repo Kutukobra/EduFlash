@@ -5,16 +5,17 @@ import { onMounted, ref } from "vue";
 import HeadIcon from "./HeadIcon.vue";
 import router from "@/router";
 import { getStudentData } from "@/storage/student";
+import axios from "axios";
 
 const roomId = ref("");
 const roomName = ref("");
 
 function toRoomData() {
-  router.push(`/room/${roomId}/data`);
+  router.push(`/room/${roomId.value}/data`);
 }
 
 function toRoomChatbot() {
-  router.push(`/room/${roomId}/chat`);
+  router.push(`/room/${roomId.value}/chat`);
 }
 
 const quizIds = ref({});
@@ -22,7 +23,7 @@ const intervalId = ref({});
 
 function fetchQuizzes() {
   axios
-    .get(`/room/${roomId}/quizzes`)
+    .get(`/room/${roomId.value}/quizzes`)
     .then((response) => {
       quizIds.value = response.data.students;
     })
@@ -43,6 +44,7 @@ onMounted(() => {
   roomId.value = student.roomId;
   roomName.value = student.roomName;
 });
+
 </script>
 
 <template>
