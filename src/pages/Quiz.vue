@@ -75,7 +75,7 @@ const questions = [
 const questionIndex = ref(0);
 const currentQuestion = ref({});
 
-const answers = ref({});
+const selection = ref({});
 const score = ref(0);
 
 const showScore = ref(false);
@@ -84,9 +84,9 @@ function submitQuiz() {
   var questionCount = questions.length;
   var correctAnswer = 0;
   for (const question of questions) {
-    if (answers.value[question.id] == question.answer) {
+    if (selection.value[question.id] == question.answer) {
       console.log({
-        answered: answers.value[question.id],
+        answered: selection.value[question.id],
         answer: question.answer,
       });
       correctAnswer++;
@@ -97,8 +97,7 @@ function submitQuiz() {
 }
 
 function handleUpdate({ questionId, optionId }) {
-  answers.value[questionId] = optionId;
-  console.log(answers.value);
+  selection.value[questionId] = optionId;
 }
 
 watch(questionIndex, (curr) => {
@@ -115,26 +114,30 @@ onMounted(() => {
 
 <template>
   <Header />
-  <div id="join-wrapper">
+  <div class="wrapper">
     <form @submit.prevent="submitQuiz">
       <Question
         :question="currentQuestion"
         :key="currentQuestion.id"
+        :selected="selection[questionIndex]"
         @update="handleUpdate"
       />
     </form>
     <div class="quiz-navigation">
       <button v-if="questionIndex > 0" @click="questionIndex--"><</button>
-      <button @click="questionIndex++">></button>
+      <button v-if="questionIndex < questions.length - 1" @click="questionIndex++">></button>
+      <button v-else @click.prevent="submitQuiz">Selesai</button>
     </div>
   </div>
   <ScoreResult :score="score" v-if="showScore" @close="showScore = false" />
 </template>
 
 <style scoped>
-#join-wrapper {
+.wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 form {
@@ -142,20 +145,4 @@ form {
   display: flexbox;
 }
 
-#submit-btn {
-  width: 60%;
-  height: 5rem;
-  border: 2px solid;
-  border-radius: 14px;
-  position: relative;
-  left: 20%;
-  margin-bottom: 5rem;
-  background-color: #5da2cd;
-  color: white;
-}
-
-#submit-btn:hover {
-  background-color: #f3b124;
-  cursor: pointer;
-}
 </style>

@@ -1,8 +1,9 @@
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, onMounted } from "vue";
 defineProps({
   question: Object,
   answerShown: Boolean,
+  selected: Number,
 });
 
 const emit = defineEmits(["update"]);
@@ -10,7 +11,10 @@ const emit = defineEmits(["update"]);
 
 <template>
   <section
-    :class="['question ', answerShown == false ? 'question-enabled' : '']"
+    :class="{
+      question: true,
+      'question-enabled': answerShown == false,
+    }"
   >
     <h3>{{ question.id + 1 + ". " + question.question }}</h3>
     <label
@@ -18,6 +22,8 @@ const emit = defineEmits(["update"]);
       :key="option.id"
       :class="{
         answer: answerShown && option.id === question.answer,
+        incorrect: answerShown && option.id === selected,
+        selected: !answerShown && option.id === selected,
       }"
     >
       <input
@@ -93,11 +99,16 @@ input {
   background-color: #f3b124;
 }
 
-.question > label:has(input:checked) {
+.question > label.selected {
   background-color: #f3b124;
 }
 
 .question > label.answer {
   background-color: #76c408;
 }
+
+.question > label.incorrect {
+  background-color: #c43408;
+}
+
 </style>
