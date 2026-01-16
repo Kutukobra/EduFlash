@@ -7,29 +7,35 @@ const emit = defineEmits(["close"]);
 
 <template>
   <div class="overlay">
-    <div class="popup">
-      <h1>Skor Anda</h1>
-      <span class="score">{{ Math.round(score) }}%</span>
-      <button @click="emit('close')">Tutup</button>
-    </div>
+    <h1>Skor Anda</h1>
+    <span>{{ Math.round(score) }}</span>
   </div>
 </template>
 
 <style scoped>
-.score {
-  display: block;
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 1rem 0;
+* {
+  color: #016493;
 }
 
-button {
-  padding: 0.6rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-  background: #016493;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+  border: 1px solid #016493;
+  border-radius: 14px;
+}
+
+span {
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

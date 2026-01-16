@@ -34,7 +34,7 @@ onMounted(() => {
       </header>
       <div class="room-card" id="data-tab" @click="toRoomData">
         <MovieIcon />
-        <h2>Rekaman Vidio dan Audio</h2>
+        <h2>Rekaman Audio dan Foto</h2>
       </div>
       <div class="room-card" id="question-tab" @click="toRoomChatbot">
         <HeadIcon />
