@@ -35,6 +35,7 @@ function getStudentScores() {
     .get(`/quiz/${route.params.quizId}/scores`)
     .then((response) => {
       results.value = response.data.students;
+      results.value.sort((a, b) => b.score - a.score );
     })
     .catch((error) => {
       console.log(error);
