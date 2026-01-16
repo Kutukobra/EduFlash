@@ -262,7 +262,8 @@ button {
 
 .submit-btn {
   border-radius: 14px;
-  aspect-ratio: 4 / 1;
-  width: 20%;
+  aspect-ratio: 0;
+  width: 8rem;
+  height: 4rem;
 }
 </style>

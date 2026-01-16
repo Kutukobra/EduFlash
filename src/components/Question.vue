@@ -66,6 +66,7 @@ label {
 }
 
 .question {
+  width: 100%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
