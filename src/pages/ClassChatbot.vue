@@ -3,6 +3,7 @@ import Header from "@/components/Header.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref, watch, nextTick } from "vue";
 import axios from "axios";
+import { askQuestion } from "@/services/aiService";
 
 const route = useRoute();
 
@@ -33,6 +34,7 @@ const messages = ref([
 
 const message = ref("");
 const chatbox = ref(null);
+const loading = ref(false);
 
 watch(
   () => messages.value.length,
@@ -44,14 +46,32 @@ watch(
   },
 );
 
-function sendMessage() {
-  console.log(message.value);
-  // TO-DO: POST to AI chatbot, get message, append to messages as sent: false;
+async function sendMessage() {
+  if (!message.value.trim() || loading.value) return;
+
+  const userMessage = message.value;
   messages.value.push({
     sent: true,
-    text: message.value,
+    text: userMessage,
   });
   message.value = "";
+  loading.value = true;
+
+  try {
+    const response = await askQuestion(roomId, userMessage);
+    messages.value.push({
+      sent: false,
+      text: response,
+    });
+  } catch (error) {
+    console.error("Error asking question:", error);
+    messages.value.push({
+      sent: false,
+      text: "Maaf, terjadi kesalahan. Silakan coba lagi.",
+    });
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
@@ -70,6 +90,9 @@ function sendMessage() {
             "
           >
             {{ message.text }}
+          </div>
+          <div v-if="loading" class="chat-bubble chat-received">
+            Sedang berpikir...
           </div>
         </div>
         <form @submit.prevent="sendMessage">

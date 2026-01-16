@@ -12,4 +12,7 @@ app.use(router);
 
 app.mount("#app");
 
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = "http://localhost:3001/api/v1";
+
+// Set AI microservice base URL as a global config
+window.AI_SERVICE_URL = "http://localhost:3000";
